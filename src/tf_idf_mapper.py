@@ -124,7 +124,16 @@ for doc in docs_file:
         else:
             words_stat[word_stemmed] = 1
 
-    word_list = words_stat.keys()
-    for word in word_list:
-        word_count = word + '\t' + str(words_stat[word])
+
+    # Print <word, count> pair.
+    # At the same time, to get the term frequency sum, use "" as a special key
+    # to count the term frequency sum in every doc.
+    terms_sum = 0
+    for word in words_stat:
+        count = words_stat[word]
+        word_count = word + '\t' + str(count)
         print word_count
+        terms_sum += count
+
+    # Print term frequency sum.
+    print '' +'\t' + str(terms_sum)
