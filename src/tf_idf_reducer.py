@@ -10,12 +10,12 @@ import tools
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
-import pdb
-word_counts_filename   = sys.argv[1]
-word_counts_file       = open(word_counts_filename, 'r')
+# import pdb
+# word_counts_filename   = sys.argv[1]
+# word_counts_file       = open(word_counts_filename, 'r')
 
 # NOTE: For real running. When running on hadoop, uncomment this line.
-# word_counts_file = sys.stdin
+word_counts_file = sys.stdin
 # ===========================================
 
 # Initialization 
