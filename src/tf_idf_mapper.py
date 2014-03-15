@@ -119,7 +119,7 @@ for doc in docs_file:
 
         # If the word is already in the dict increase its count, otherwise add
         # it in.
-        if word in words_stat:
+        if word_stemmed in words_stat:
             words_stat[word_stemmed] += 1
         else:
             words_stat[word_stemmed] = 1
