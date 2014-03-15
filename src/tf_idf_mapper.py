@@ -6,11 +6,11 @@
 
 import nltk
 import tools
+import sys
 
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
-import sys
 docs_filename   = sys.argv[1]
 docs_file       = open(docs_filename, 'r')
 
