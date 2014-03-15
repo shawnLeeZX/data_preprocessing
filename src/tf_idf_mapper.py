@@ -4,13 +4,13 @@
 # Input format:     doc_id<tab>content
 # Output format:    word_name<tab>occurrence_in_the_doc
 
-import sys
 import nltk
+import tools
 
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
-import pdb
+import sys
 docs_filename   = sys.argv[1]
 docs_file       = open(docs_filename, 'r')
 
@@ -40,16 +40,7 @@ nonsense_word_len = 40
 # ===========================================
 # Dealing with coding.
 # =================================================================
-# By default Python 2 tries to convert unicode into bytes using the ascii codec.
-# One approach to tackle this is to check sys.stdout's encoding, and if it's
-# unknown (None) wrap it into a codecs.Writer that can handle all characters
-# that may occur. UTF-8 is usually a good choice, but other codecs are possible.
-if sys.stdout.encoding is None:
-    import codecs
-    Writer = codecs.getwriter("utf-8")
-    sys.stdout = Writer(sys.stdout)
-if sys.stderr.encoding is None:
-    sys.stderr = Writer(sys.stderr)
+tools.setupEncodingForStdio()
 # =================================================================
 
 # Load necessary library.
