@@ -1,0 +1,8 @@
+*.swp
+*.log.*
+*.log
+*.cs
+*.txt
+tmp
+reference
+data
