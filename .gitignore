@@ -6,3 +6,4 @@
 tmp
 reference
 data
+*.pyc
