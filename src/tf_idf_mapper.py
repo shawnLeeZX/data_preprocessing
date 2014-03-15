@@ -7,18 +7,6 @@
 import sys
 import nltk
 
-# Initialization about dealing with coding.
-# ===========================================
-# By default Python 2 tries to convert unicode into bytes using the ascii codec.
-# One approach to tackle this is to check sys.stdout's encoding, and if it's
-# unknown (None) wrap it into a codecs.Writer that can handle all characters
-# that may occur. UTF-8 is usually a good choice, but other codecs are possible.
-if sys.stdout.encoding is None:
-    import codecs
-    Writer = codecs.getwriter("utf-8")
-    sys.stdout = Writer(sys.stdout)
-
-
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
@@ -48,33 +36,61 @@ chars_should_not_in_word = punctuation + number
 nonsense_word_len = 40
 # ===========================================
 
-
-# Now begins the main part.
+# Initialization 
 # ===========================================
+# Dealing with coding.
+# =================================================================
+# By default Python 2 tries to convert unicode into bytes using the ascii codec.
+# One approach to tackle this is to check sys.stdout's encoding, and if it's
+# unknown (None) wrap it into a codecs.Writer that can handle all characters
+# that may occur. UTF-8 is usually a good choice, but other codecs are possible.
+if sys.stdout.encoding is None:
+    import codecs
+    Writer = codecs.getwriter("utf-8")
+    sys.stdout = Writer(sys.stdout)
+if sys.stderr.encoding is None:
+    sys.stderr = Writer(sys.stderr)
+# =================================================================
+
+# Load necessary library.
+# =================================================================
+# Load nltk sentence seperator.
+nltk.data.load('nltk:tokenizers/punkt/english.pickle')
+# =================================================================
+
+# Data structure.
+# =================================================================
 # We do word count statistics in the mapper function.
 # To achieve this, the mapper will maintain a dictionary to quick check whether
 # one word is in the dict of not. If it is, increment its count, otherwise add
 # it in the dict with count one.
 words_stat = {}
+# ===========================================
 
+
+
+# Now begins the main part.
+# ===========================================
 for doc in docs_file:
     # Get content of the doc.
     discarded, content = doc.split('\t', 1)
 
-    # TODO: use try catch to make sure unicode conversion is right.
-    try:
-        content = unicode(content, 'utf-8')
-    except UnicodeDecodeError:
-        print doc
-        exit(1)
-
     # Break content into sentences.
-    nltk.data.load('nltk:tokenizers/punkt/english.pickle')
     sentences = nltk.sent_tokenize(content)
 
     word_list_tmp = []
     # Break sentence into words.
     for sentence in sentences:
+        # Since there exists multiple different encoding in the corpus, the
+        # chars that are decoded other than utf-8 will be discarded.
+        conversion_done = False
+        while not conversion_done:
+            try:
+                sentence = unicode(sentence, 'utf-8')
+                conversion_done = True
+            except UnicodeDecodeError as decode_error:
+                sentence = sentence[1:decode_error.args[2]] + sentence[decode_error.args[3] + 1:]
+
         sentence = sentence.strip(should_stripped_chars)
         word_list_tmp += nltk.word_tokenize(sentence)
 
