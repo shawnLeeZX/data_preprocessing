@@ -49,20 +49,16 @@ tools.setupEncodingForStdio()
 nltk.data.load('nltk:tokenizers/punkt/english.pickle')
 # =================================================================
 
-# Data structure.
-# =================================================================
-# We do word count statistics in the mapper function.
-# To achieve this, the mapper will maintain a dictionary to quick check whether
-# one word is in the dict of not. If it is, increment its count, otherwise add
-# it in the dict with count one.
-words_stat = {}
-# ===========================================
-
-
 
 # Now begins the main part.
 # ===========================================
 for doc in docs_file:
+    # We do word count statistics in the mapper function.
+    # To achieve this, the mapper will maintain a dictionary to quick check whether
+    # one word is in the dict of not. If it is, increment its count, otherwise add
+    # it in the dict with count one.
+    words_stat = {}
+
     # Get content of the doc.
     discarded, content = doc.split('\t', 1)
 
