@@ -101,6 +101,14 @@ for doc in docs_file:
         if len(word) > nonsense_word_len:
             continue
 
+        # Remove control chars.
+        if len(word) == 1 and ord(word) <= 0x1f:
+            continue
+
+        # Remove '--'.
+        if word == '--':
+            continue
+
         # Remove words contain special chars.
         contain_illegal_char = False
         for char in chars_should_not_in_word:
