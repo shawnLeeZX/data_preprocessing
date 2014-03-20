@@ -60,4 +60,4 @@ for doc in docs_file:
         terms_sum += count
 
     # Print term frequency sum.
-    print '' +'\t' + str(terms_sum)
+    print '' + '\t' + str(terms_sum)
