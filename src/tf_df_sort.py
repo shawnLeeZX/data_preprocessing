@@ -41,10 +41,6 @@ word_tf_df_array_sorted_by_tf  = np.sort(word_tf_df_array, order='tf')
 
 # Save the result to file.
 tf_result_file = open(sys.argv[1] + '.sorted_tf', 'w')
-tf_result_file.writelines(
-        'word' + '\t' + 
-        'tf' + ':' + 
-        'df' + '\n')
 for item in word_tf_df_array_sorted_by_tf:
     tf_result_file.writelines(
             item['word'] + '\t' + 
@@ -56,10 +52,6 @@ word_tf_df_array_sorted_by_df  = np.sort(word_tf_df_array, order='df')
 
 # Save the result to file.
 idf_result_file = open(sys.argv[1] + '.sorted_df', 'w')
-idf_result_file.writelines(
-        'word' + '\t' + 
-        'tf' + ':' + 
-        'df' + '\n')
 for item in word_tf_df_array_sorted_by_df:
     idf_result_file.writelines(
             item['word'] + '\t' + 
