@@ -43,12 +43,12 @@ word_tf_df_array_sorted_by_tf  = np.sort(word_tf_df_array, order='tf')
 tf_result_file = open(sys.argv[1] + '.sorted_tf', 'w')
 tf_result_file.writelines(
         'word' + '\t' + 
-        'tf' + '\t' + 
+        'tf' + ':' + 
         'df' + '\n')
 for item in word_tf_df_array_sorted_by_tf:
     tf_result_file.writelines(
             item['word'] + '\t' + 
-            str(item['tf']) + '\t' +
+            str(item['tf']) + ':' +
             str(item['df']) + '\n')
 
 # Sort according to idf.
@@ -58,12 +58,12 @@ word_tf_df_array_sorted_by_df  = np.sort(word_tf_df_array, order='df')
 idf_result_file = open(sys.argv[1] + '.sorted_df', 'w')
 idf_result_file.writelines(
         'word' + '\t' + 
-        'tf' + '\t' + 
+        'tf' + ':' + 
         'df' + '\n')
 for item in word_tf_df_array_sorted_by_df:
     idf_result_file.writelines(
             item['word'] + '\t' + 
-            str(item['tf']) + '\t' +
+            str(item['tf']) + ':' +
             str(item['df']) + '\n')
 
 # NOTE: we are not dealing with tfidf as the way in search engine -- we will
