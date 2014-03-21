@@ -21,8 +21,9 @@ word_counts_file = sys.stdin
 # Initialization 
 # ===========================================
 # Dealing with coding.
+# Add this will result in error... so comment it. Unicode is strange...
 # =================================================================
-tools.setupEncodingForStdio()
+# tools.setupEncodingForStdio()
 # =================================================================
 
 # Data structure.

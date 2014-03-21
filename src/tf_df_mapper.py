@@ -82,7 +82,6 @@ for doc in docs_file:
         word_list_tmp += nltk.word_tokenize(sentence)
 
     # Do words statistics while pruning punctuation and nonsense words.
-    stemmer = nltk.stem.lancaster.LancasterStemmer()
     for word in word_list_tmp:
         # Remove words that are too long.
         if len(word) > nonsense_word_len:
@@ -109,15 +108,12 @@ for doc in docs_file:
         if word == '-':
             continue
 
-        # Do word stemming.
-        word_stemmed = stemmer.stem(word)
-
         # If the word is already in the dict increase its count, otherwise add
         # it in.
-        if word_stemmed in words_stat:
-            words_stat[word_stemmed] += 1
+        if word in words_stat:
+            words_stat[word] += 1
         else:
-            words_stat[word_stemmed] = 1
+            words_stat[word] = 1
 
 
     # Print <word, count> pair.

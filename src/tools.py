@@ -9,11 +9,15 @@ import codecs
 # unknown (None) wrap it into a codecs.Writer that can handle all characters
 # that may occur. UTF-8 is usually a good choice, but other codecs are possible.
 def setupEncodingForStdio():
+    Writer = codecs.getwriter('utf-8')
     if sys.stdout.encoding is None:
-        Writer = codecs.getwriter("utf-8")
         sys.stdout = Writer(sys.stdout)
     if sys.stderr.encoding is None:
         sys.stderr = Writer(sys.stderr)
+
+    Reader = codecs.getwriter('utf-8')
+    if sys.stdin.encoding is None:
+        sys.stdin = Reader(sys.stdin)
 
 # Load dictionary from file as a list.
 def loadDict(dict_filename):

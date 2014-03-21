@@ -7,3 +7,6 @@ tmp
 reference
 data
 *.pyc
+*.bat
+*.tar.*
+test.py
