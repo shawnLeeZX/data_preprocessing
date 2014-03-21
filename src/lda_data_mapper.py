@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+
 # Input format:     doc_id<tab>pure english words seperated by whitespace
 # Output format:    word_name<tab>doc_id:count
 
 import tools
-import nltk
 import sys
+
 
 # Running & Debugging
 # ===========================================
@@ -16,8 +17,18 @@ import sys
 # dict_filename   = sys.argv[2]
 
 # NOTE: For real running. When running on hadoop, uncomment this line.
+if len(sys.argv) != 2:
+    print '''Usage: python lda_data_mapper.py [DICT]
+    Note:
+    ========================
+    Doc Input format:     doc_id<tab>Regular articles.
+    Result Output format:    word_name<tab>doc_id:count
+    You should specify your dictionary!!!
+    ======================='''
+    exit(1)
+
 docs_file = sys.stdin
-dict_filename   = 'data/wiki.dict'
+dict_filename   = sys.argv[1]
 # ===========================================
 
 # Initialization 
@@ -29,7 +40,6 @@ tools.setupEncodingForStdio()
 # Data structure.
 # =================================================================
 dictionary = tools.loadDict(dict_filename)
-stemmer = nltk.stem.lancaster.LancasterStemmer()
 # =================================================================
 
 
@@ -40,11 +50,11 @@ for line in docs_file:
 
     doc_id = int(doc_id)
 
-    word_list   = doc.split(' ')
+    word_list   = tools.getWordListFromArticle(doc)
+
     token_list  = {}
     # Only count the occurrence of words(token) in dictionary.
     for word in word_list:
-        word = stemmer.stem(word)
         if word not in dictionary:
             continue
 

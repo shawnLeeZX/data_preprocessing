@@ -48,7 +48,7 @@ def loadDict(dict_filename):
     dict_file = open(dict_filename, 'r')
 
     for word in dict_file:
-        word        = word.strip('\n')
+        word        = unicode(word.strip('\n'), 'utf-8')
         dict_list   += [word]
 
     return dict_list
