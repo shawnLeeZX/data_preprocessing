@@ -11,11 +11,11 @@ import sys
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
-docs_filename   = sys.argv[1]
-docs_file       = open(docs_filename, 'r')
+# docs_filename   = sys.argv[1]
+# docs_file       = open(docs_filename, 'r')
 
 # NOTE: For real running. When running on hadoop, uncomment this line.
-# docs_file = sys.stdin
+docs_file = sys.stdin
 # ===========================================
 
 # Initialization 
