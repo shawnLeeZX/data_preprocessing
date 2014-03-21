@@ -23,11 +23,16 @@ script_dir=`dirname $script_path`
 project_root=`dirname $script_dir`
 
 doc_file=$1
-doc_file_tf_df="${doc_file}.tf_df"
+doc_file.with_doc_id="${doc_file}.with_doc_id"
+doc_file_tf_df="${doc_file.with_doc_id}.tf_df"
+
+# First, we should give each doc one unique document id. To do this, run this
+# python script.
+${project_root}/src/convert_url_to_int.py ${doc_file}
 
 # Count tf and df of words in the doc and store it in with name
 # <doc_file>.tf_df.
-cat ${doc_file} \
+cat ${doc_file.with_doc_id} \
     | python $project_root/src/tf_df_mapper.py \
     | sort -k 1,1 -t $'\t' \
     | python $project_root/src/tf_df_reducer.py > ${doc_file_tf_df}
