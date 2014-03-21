@@ -23,10 +23,14 @@ script_dir=`dirname $script_path`
 project_root=`dirname $script_dir`
 
 doc_file=$1
+doc_file_tf_df="${doc_file}.tf_df"
 
 # Count tf and df of words in the doc and store it in with name
 # <doc_file>.tf_df.
 cat ${doc_file} \
     | python $project_root/src/tf_df_mapper.py \
     | sort -k 1,1 -t $'\t' \
-    | python $project_root/src/tf_df_reducer.py > "${doc_file}.tf_df"
+    | python $project_root/src/tf_df_reducer.py > ${doc_file_tf_df}
+
+# Sort the result by tf and df separately.
+python $project_root/src/tf_df_sort.py ${doc_file_tf_df}

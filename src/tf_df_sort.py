@@ -11,8 +11,7 @@ if len(sys.argv) != 2:
     Note:
     ========================
     FILE FORMAT should be: word<tab>tf:idf.
-    Program will output three files, which sorts the word by tf, idf and tfidf
-    separatedly.
+    Program will output two files, which sorts the words by tf, idf separatedly.
     ======================='''
     exit(1)
 
