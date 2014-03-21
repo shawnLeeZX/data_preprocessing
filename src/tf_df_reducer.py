@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+# Script Description
+# ===========================================
+# The script acts like normal map-reduce streamming workflow -- it takes input
+# from stdin and print the result into stdout.
 # Input format:     word<tab>count_in_doc
-# Output format:    word_name<tab>tf:idf
+# Output format:    word_name<tab>tf:df
+# ===========================================
+
 
 import sys
 import tools

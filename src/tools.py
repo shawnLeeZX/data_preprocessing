@@ -37,18 +37,14 @@ def setupEncodingForStdio():
     if sys.stderr.encoding is None:
         sys.stderr = Writer(sys.stderr)
 
-    Reader = codecs.getwriter('utf-8')
-    if sys.stdin.encoding is None:
-        sys.stdin = Reader(sys.stdin)
-
 # Load dictionary from file as a list.
 # ====================================================================
 def loadDict(dict_filename):
     dict_list = []
-    dict_file = open(dict_filename, 'r')
+    dict_file = codecs.open(dict_filename, encoding='utf-8', mode='r')
 
     for word in dict_file:
-        word        = unicode(word.strip('\n'), 'utf-8')
+        word        = word.strip('\n')
         dict_list   += [word]
 
     return dict_list
@@ -84,8 +80,10 @@ def checkWordValidation(word):
         return False
 
     # Remove control chars.
-    if len(word) == 1 and ord(word) <= 0x1f:
-        return False
+    for i in range(0x00, 0x1f):
+        if chr(i) in word:
+            return False
+            break
 
     # Remove '--'.
     if word == '--':

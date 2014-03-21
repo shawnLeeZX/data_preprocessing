@@ -11,7 +11,7 @@ import sys
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
 # count_filename   = sys.argv[1]
-# count_file       = open(count_filename, 'r')
+# count_file       = open(count_filename, encoding='utf-8', mode='r')
 
 # NOTE: For real running. When running on hadoop, uncomment this line.
 count_file = sys.stdin

@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+# Script Description
+# ===========================================
+# The script acts like normal map-reduce streamming workflow -- it takes input
+# from stdin and print the result into stdout.
 # Input format:     doc_id<tab>article
-# Output format:    word_name<tab>occurrence_in_the_doc
+# Output format:    word_name<tab>word_count
+#
+# Article is normal article with punctuations.
+# ===========================================
+
 
 import nltk
 import tools
@@ -11,6 +19,7 @@ import sys
 # Running & Debugging
 # ===========================================
 # NOTE: For debug. When testing, uncomment the following line.
+# import codecs
 # docs_filename   = sys.argv[1]
 # docs_file       = open(docs_filename, 'r')
 

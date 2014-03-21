@@ -19,11 +19,11 @@ data_dir   = root_dir + 'data/'
 
 # Read document from file
 old_docs_filename   = sys.argv[1]
-old_docs_file       = codecs.open(old_docs_filename, encoding='utf-8', mode='r')
+old_docs_file       = open(old_docs_filename, 'r')
 
 # Open new file to store coverted docs.
-new_docs_filename   = old_docs_filename + '.new'
-new_docs_file       = codecs.open(new_docs_filename, encoding='utf-8', mode='w')
+new_docs_filename   = old_docs_filename + '.with_doc_id'
+new_docs_file       = codecs.open(new_docs_filename, 'w')
 
 
 # Convert document url in the file into doc_id, which is int numbered from zero.
