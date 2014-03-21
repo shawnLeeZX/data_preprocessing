@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-# Input format:     doc_id<tab>content
+# Input format:     doc_id<tab>article
 # Output format:    word_name<tab>occurrence_in_the_doc
 
 import nltk
@@ -18,23 +18,6 @@ import sys
 docs_file = sys.stdin
 # ===========================================
 
-# Heuristics of Shuai's knowledge.
-# ===========================================
-# Head and tail of sentences should be stripped.
-should_stripped_chars = u'\n.?!~:;。？！：；～……'
-
-# Symbol should not be regard as standalone symbol.
-# Note that '-' is not in it, since hypen plays a great role in forming words,
-# like one-life-time. The case that only one '-' regarded as a word is handled
-# seperately.
-punctuation = u'`\t ,./\\!?()+|@$#%^&\'\":’“”_*=;><~[]{},，'
-number      = u'0123456789'
-
-chars_should_not_in_word = punctuation + number
-
-# Word with length beyond this should not be regarded as standalone symbol.
-nonsense_word_len = 40
-# ===========================================
 
 # Initialization 
 # ===========================================
@@ -59,61 +42,21 @@ for doc in docs_file:
     # it in the dict with count one.
     words_stat = {}
 
-    # Get content of the doc.
-    discarded, content = doc.split('\t', 1)
+    # Get article of the doc.
+    discarded, article = doc.split('\t', 1)
 
-    # Break content into sentences.
-    sentences = nltk.sent_tokenize(content)
-
-    word_list_tmp = []
-    # Break sentence into words.
-    for sentence in sentences:
-        # Since there exists multiple different encoding in the corpus, the
-        # chars that are decoded other than utf-8 will be discarded.
-        conversion_done = False
-        while not conversion_done:
-            try:
-                sentence = unicode(sentence, 'utf-8')
-                conversion_done = True
-            except UnicodeDecodeError as decode_error:
-                sentence = sentence[1:decode_error.args[2]] + sentence[decode_error.args[3] + 1:]
-
-        sentence = sentence.strip(should_stripped_chars)
-        word_list_tmp += nltk.word_tokenize(sentence)
+    word_list = tools.getWordListFromArticle(article)
 
     # Do words statistics while pruning punctuation and nonsense words.
-    for word in word_list_tmp:
-        # Remove words that are too long.
-        if len(word) > nonsense_word_len:
-            continue
-
-        # Remove control chars.
-        if len(word) == 1 and ord(word) <= 0x1f:
-            continue
-
-        # Remove '--'.
-        if word == '--':
-            continue
-
-        # Remove words contain special chars.
-        contain_illegal_char = False
-        for char in chars_should_not_in_word:
-            if char in word:
-                contain_illegal_char = True
-                break;
-        if contain_illegal_char:
-            continue
-
-        # Handle the case that there is only one hypen in the word.
-        if word == '-':
-            continue
-
-        # If the word is already in the dict increase its count, otherwise add
-        # it in.
-        if word in words_stat:
-            words_stat[word] += 1
-        else:
-            words_stat[word] = 1
+    for word in word_list:
+        is_valid = tools.checkWordValidation(word)
+        if is_valid:
+            # If the word is already in the dict increase its count, otherwise
+            # add it in.
+            if word in words_stat:
+                words_stat[word] += 1
+            else:
+                words_stat[word] = 1
 
 
     # Print <word, count> pair.
