@@ -11,22 +11,17 @@ doc_title(could be url)<tab>doc_content
 
 see `data/bing_sample_big.txt`.
 
-First, we should give each doc one unique document id. To do this, run this
-python script.
-```bash
-src/convert_url_to_int.py data/bing_sample_big.txt
-```
-
-It will create `data/bing_sample_big.txt.with_doc_id`.
-
 ## How to Generate Dictionary
-Then execute `scripts/prepare_dict.sh`.
+Execute `scripts/prepare_dict.sh`.
 
 ```bash
 ./scripts/prepare_dict.sh data/bing_sample_big.txt.with_doc_id
 ```
 
-It will generate `data/bing_sample_big.txt.tf_df.sorted_df` and 
+First, we should give each doc one unique document id. It will create
+`data/bing_sample_big.txt.with_doc_id`.
+
+Then, it will generate `data/bing_sample_big.txt.tf_df.sorted_df` and 
 `data/bing_sample_big.txt.tf_df.sorted_df`. The first one sorts words in the
 documents by tf and the second by df.
 
